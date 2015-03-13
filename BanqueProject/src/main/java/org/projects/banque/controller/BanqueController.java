@@ -1,5 +1,6 @@
 package org.projects.banque.controller;
 
+import org.projects.banque.entities.Compte;
 import org.projects.banque.metier.IBanqueMetier;
 import org.projects.banque.model.BanqueForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,16 @@ public class BanqueController {
 	@RequestMapping(value = "/index")
 	public String index(Model model) {
 		model.addAttribute("banqueForm", new BanqueForm());
+		return "banque";
+
+	}
+	
+	
+	@RequestMapping(value = "/chargerCompte")
+	public String charger(BanqueForm bf,Model model) {
+		Compte cp=metier.consulterCompte(bf.getCode());
+		bf.setCompte(cp);
+		model.addAttribute("banqueForm", bf);
 		return "banque";
 
 	}
