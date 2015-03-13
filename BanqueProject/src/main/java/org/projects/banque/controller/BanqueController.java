@@ -6,6 +6,8 @@ import org.projects.banque.model.BanqueForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -23,8 +25,10 @@ public class BanqueController {
 	
 	
 	@RequestMapping(value = "/chargerCompte")
-	public String charger(BanqueForm bf,Model model) {
-		
+	public String charger(@Validated BanqueForm bf,BindingResult bindingResult ,Model model) {
+		if(bindingResult.hasErrors()){
+			return "banque";
+		}
 		try{
 			Compte cp=metier.consulterCompte(bf.getCode());
 			bf.setTypeCompte(cp.getClass().getSimpleName());

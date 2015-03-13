@@ -1,9 +1,14 @@
 package org.projects.banque.model;
 
+
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.projects.banque.entities.Compte;
 
 public class BanqueForm {
-	
+	@NotEmpty
+	@Size(min=2, max=10)
 	private String code;
 	private Compte compte;
 	private String typeCompte;
