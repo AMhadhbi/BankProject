@@ -76,6 +76,25 @@
 				<td>${banqueForm.compte.employe.nomEmploye}</td>
 			</table>
 		</div>
+		
+		<div>
+		<table>
+		<tr>
+		<th>Num</th>
+		<th>Type</th>
+		<th>Date d'Operation</th>
+		<th>Montant</th>
+		</tr>
+		<c:forEach items="${banqueForm.operations }" var="op">
+		 <tr>
+		<td>${op.numOperation}</td>
+		<td></td>
+		<td>${op.dateOperation}</td>
+		<td>${op.montant}</td>
+		</tr>
+		</c:forEach>
+		</table>
+		</div>
 	</c:if>
 
 

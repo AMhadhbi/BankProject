@@ -1,6 +1,9 @@
 package org.projects.banque.controller;
 
+import java.util.List;
+
 import org.projects.banque.entities.Compte;
+import org.projects.banque.entities.Operation;
 import org.projects.banque.metier.IBanqueMetier;
 import org.projects.banque.model.BanqueForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ public class BanqueController {
 
 	}
 	
-	
+
 	@RequestMapping(value = "/chargerCompte")
 	public String charger(@Validated BanqueForm bf,BindingResult bindingResult ,Model model) {
 		if(bindingResult.hasErrors()){
@@ -33,6 +36,8 @@ public class BanqueController {
 			Compte cp=metier.consulterCompte(bf.getCode());
 			bf.setTypeCompte(cp.getClass().getSimpleName());
 			bf.setCompte(cp);
+			List<Operation> ops=metier.consulterOperations(bf.getCode());
+			bf.setOperations(ops);
 		}
 		
 		catch (Exception e){
