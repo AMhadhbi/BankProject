@@ -98,7 +98,7 @@
 		</tr>
 		</c:if>
 		<tr>
-		<td><input type="submit" value="SaveOperation"></td>
+		<td><input type="submit" value="SaveOperation" onclick="this.form.submit()"></td>
 		</tr>
 		</c:if>
 		</f:form>
