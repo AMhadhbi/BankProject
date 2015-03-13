@@ -3,6 +3,8 @@ package org.projects.banque.model;
 
 import java.util.List;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -18,7 +20,11 @@ public class BanqueForm {
 	private String exception;
 	private String typeOperation;
 	private List<Operation> operations;
-	private double montant;
+	@DecimalMin(value="50")
+	private double montant=50;
+	@NotEmpty
+	@Size(min=2, max=10)
+	private String code2="XXX";
 	private String action ;
 	
 	public String getAction() {
@@ -33,7 +39,7 @@ public class BanqueForm {
 	public void setMontant(double montant) {
 		this.montant = montant;
 	}
-	private String code2;
+	
 	
 	public String getCode2() {
 		return code2;

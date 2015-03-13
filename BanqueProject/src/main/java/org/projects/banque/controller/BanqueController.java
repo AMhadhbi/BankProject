@@ -2,6 +2,8 @@ package org.projects.banque.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.projects.banque.entities.Compte;
 import org.projects.banque.entities.Operation;
 import org.projects.banque.metier.IBanqueMetier;
@@ -28,7 +30,7 @@ public class BanqueController {
 	
 
 	@RequestMapping(value = "/chargerCompte")
-	public String charger(@Validated BanqueForm bf,BindingResult bindingResult ,Model model) {
+	public String charger(@Valid BanqueForm bf,BindingResult bindingResult ,Model model) {
 		if(bindingResult.hasErrors()){
 			return "banque";
 		}
@@ -52,7 +54,20 @@ public class BanqueController {
 	
 
 	@RequestMapping(value = "/saveOperation")
-	public String SaveO (BanqueForm bf) {
+	public String Save (@Valid BanqueForm bf,BindingResult bindingResult) {
+		try{
+			Compte cp=metier.consulterCompte(bf.getCode());
+			bf.setTypeCompte(cp.getClass().getSimpleName());
+			bf.setCompte(cp);
+			
+		}
+		
+		catch (Exception e){
+			bf.setException(e.getMessage());
+		}
+		if(bindingResult.hasErrors()){
+			return "banque";
+		}
 		if(bf.getAction()!=null) {
 		if(bf.getTypeOperation().equals("VER")){
 			metier.verser(bf.getCode(), bf.getMontant(), 1L);
@@ -69,17 +84,8 @@ public class BanqueController {
 			}
 		}
 		
-		try{
-			Compte cp=metier.consulterCompte(bf.getCode());
-			bf.setTypeCompte(cp.getClass().getSimpleName());
-			bf.setCompte(cp);
-			List<Operation> ops=metier.consulterOperations(bf.getCode());
-			bf.setOperations(ops);
-		}
-		
-		catch (Exception e){
-			bf.setException(e.getMessage());
-		}
+		List<Operation> ops=metier.consulterOperations(bf.getCode());
+		bf.setOperations(ops);
 		return "banque";
 
 	}
