@@ -27,7 +27,7 @@ public class BanqueDaoImpl implements IbanqueDao {
 	public Employe addEmploye(Employe e, Long codeSup) {
 		if (codeSup != null) {
 			Employe sup = em.find(Employe.class, codeSup);
-			e.setCodeEmploye(codeSup);
+			e.setEmployeSup(sup);
 		}
 		em.persist(e);
 		return e;
@@ -43,7 +43,7 @@ public class BanqueDaoImpl implements IbanqueDao {
 	public void addEmployeToGroupe(Long codeEmp, Long codeGr) {
 
 		Employe e = em.find(Employe.class, codeEmp);
-		Groupe g = em.find(Groupe.class, codeEmp);
+		Groupe g = em.find(Groupe.class, codeGr);
 		e.getGroupes().add(g);
 		g.getEmploye().add(e);
 
