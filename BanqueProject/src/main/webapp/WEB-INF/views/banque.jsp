@@ -65,23 +65,28 @@
 		</div>
 		<div>
 			<table>
+			<tr>
 				<td>Nom Client :</td>
 				<td>${banqueForm.compte.client.nomClient}</td>
-			</table>
+			</tr>
+			</table>	
 		</div>
 
 		<div>
 			<table>
+			<tr>
 				<td>Nom Eploye :</td>
 				<td>${banqueForm.compte.employe.nomEmploye}</td>
+			<tr>
 			</table>
 		</div>
 		<div>
-		<f:form modelAttribute="banqueForm" action="savaeOperation">
+		<f:form modelAttribute="banqueForm" action="saveOperation">
+		<f:hidden path="code"/>
 		<tr>
-		<td>Versement :<f:radiobutton path="typeOperation" value="VE"/></td>
-		<td>Retrait :<f:radiobutton path="typeOperation" value="RE"/></td>
-		<td>Virement :<f:radiobutton path="typeOperation" value="VIR"/></td>
+		<td>Versement :<f:radiobutton path="typeOperation" value="VE" onclick="this.form.submit()"/></td>
+		<td>Retrait :<f:radiobutton path="typeOperation" value="RE"  onclick="this.form.submit()"/></td>
+		<td>Virement :<f:radiobutton path="typeOperation" value="VIR"  onclick="this.form.submit()"/></td>
 		</tr>
 		<c:if test="${not empty banqueForm.typeOperation}">
 		<tr>
@@ -98,7 +103,7 @@
 		</tr>
 		</c:if>
 		<tr>
-		<td><input type="submit" value="SaveOperation" onclick="this.form.submit()"></td>
+		<td><input type="submit" name="action" value="save"></td>
 		</tr>
 		</c:if>
 		</f:form>

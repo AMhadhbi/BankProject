@@ -49,5 +49,39 @@ public class BanqueController {
 		return "banque";
 
 	}
+	
+
+	@RequestMapping(value = "/saveOperation")
+	public String SaveO (BanqueForm bf) {
+		if(bf.getAction()!=null) {
+		if(bf.getTypeOperation().equals("VER")){
+			metier.verser(bf.getCode(), bf.getMontant(), 1L);
+		}
+		
+		else if(bf.getTypeOperation().equals("RET")){
+			
+			metier.retirer(bf.getCode(), bf.getMontant(), 1L);
+		}
+		else 
+			if(bf.getTypeOperation().equals("VIR")){
+				
+				metier.virement(bf.getCode(), bf.getCode2(), bf.getMontant(), 1L);
+			}
+		}
+		
+		try{
+			Compte cp=metier.consulterCompte(bf.getCode());
+			bf.setTypeCompte(cp.getClass().getSimpleName());
+			bf.setCompte(cp);
+			List<Operation> ops=metier.consulterOperations(bf.getCode());
+			bf.setOperations(ops);
+		}
+		
+		catch (Exception e){
+			bf.setException(e.getMessage());
+		}
+		return "banque";
+
+	}
 
 }

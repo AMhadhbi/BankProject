@@ -16,8 +16,37 @@ public class BanqueForm {
 	private Compte compte;
 	private String typeCompte;
 	private String exception;
+	private String typeOperation;
 	private List<Operation> operations;
+	private double montant;
+	private String action ;
 	
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String action) {
+		this.action = action;
+	}
+	public double getMontant() {
+		return montant;
+	}
+	public void setMontant(double montant) {
+		this.montant = montant;
+	}
+	private String code2;
+	
+	public String getCode2() {
+		return code2;
+	}
+	public void setCode2(String code2) {
+		this.code2 = code2;
+	}
+	public String getTypeOperation() {
+		return typeOperation;
+	}
+	public void setTypeOperation(String typeOperation) {
+		this.typeOperation = typeOperation;
+	}
 	public List<Operation> getOperations() {
 		return operations;
 	}
