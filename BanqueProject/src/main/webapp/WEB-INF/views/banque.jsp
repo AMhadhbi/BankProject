@@ -88,7 +88,7 @@
 		<c:forEach items="${banqueForm.operations }" var="op">
 		 <tr>
 		<td>${op.numOperation}</td>
-		<td></td>
+		<td>${op}</td>
 		<td>${op.dateOperation}</td>
 		<td>${op.montant}</td>
 		</tr>
