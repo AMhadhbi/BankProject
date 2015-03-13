@@ -36,7 +36,25 @@
 				<td>Date de Création: :</td>
 				<td>${banqueForm.compte.dateCreation}</td>
 			</tr>
-
+              
+              <tr>
+				<td>Type de Compte :</td>
+				<td>${banqueForm.typeCompte}</td>
+			</tr>
+			<c:if test="${banqueForm.typeCompte=='CompteCourant'}">
+			<tr>
+				<td>Découvert :</td>
+				<td>${banqueForm.compte.decouvert}</td>
+			</tr>
+			</c:if>
+			
+			
+			<c:if test="${banqueForm.typeCompte=='CompteEpargne'}">
+			<tr>
+				<td>Taux :</td>
+				<td>${banqueForm.compte.taux}</td>
+			</tr>
+			</c:if>
 
 		</table>
 

@@ -6,6 +6,15 @@ public class BanqueForm {
 	
 	private String code;
 	private Compte compte;
+	private String typeCompte;
+	
+	
+	public String getTypeCompte() {
+		return typeCompte;
+	}
+	public void setTypeCompte(String typeCompte) {
+		this.typeCompte = typeCompte;
+	}
 	public String getCode() {
 		return code;
 	}
