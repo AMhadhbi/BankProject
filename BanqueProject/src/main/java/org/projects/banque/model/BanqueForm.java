@@ -14,6 +14,7 @@ public class BanqueForm {
 	private String typeCompte;
 	private String exception;
 	
+	
 	public String getException() {
 		return exception;
 	}

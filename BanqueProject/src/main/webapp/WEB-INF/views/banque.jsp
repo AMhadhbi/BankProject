@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/resources/css/style1.css">
 <title>Banque</title>
 </head>
 <body>
@@ -61,7 +63,19 @@
 			</table>
 
 		</div>
+		<div>
+			<table>
+				<td>Nom Client :</td>
+				<td>${banqueForm.compte.client.nomClient}</td>
+			</table>
+		</div>
 
+		<div>
+			<table>
+				<td>Nom Eploye :</td>
+				<td>${banqueForm.compte.employe.nomEmploye}</td>
+			</table>
+		</div>
 	</c:if>
 
 
