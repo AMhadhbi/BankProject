@@ -7,8 +7,14 @@ public class BanqueForm {
 	private String code;
 	private Compte compte;
 	private String typeCompte;
+	private String exception;
 	
-	
+	public String getException() {
+		return exception;
+	}
+	public void setException(String exception) {
+		this.exception = exception;
+	}
 	public String getTypeCompte() {
 		return typeCompte;
 	}

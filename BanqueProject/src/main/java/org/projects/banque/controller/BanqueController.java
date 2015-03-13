@@ -24,9 +24,18 @@ public class BanqueController {
 	
 	@RequestMapping(value = "/chargerCompte")
 	public String charger(BanqueForm bf,Model model) {
-		Compte cp=metier.consulterCompte(bf.getCode());
-		bf.setTypeCompte(cp.getClass().getSimpleName());
-		bf.setCompte(cp);
+		
+		try{
+			Compte cp=metier.consulterCompte(bf.getCode());
+			bf.setTypeCompte(cp.getClass().getSimpleName());
+			bf.setCompte(cp);
+		}
+		
+		catch (Exception e){
+			bf.setException(e.getMessage());
+		}
+		
+		
 		model.addAttribute("banqueForm", bf);
 		return "banque";
 
