@@ -58,7 +58,7 @@ public class BanqueController {
 			metier.verser(bf.getCode(), bf.getMontant(), 1L);
 		}
 		
-		else if(bf.getTypeOperation().equals("RET")){
+		else if(bf.getTypeOperation().equals("RE")){
 			
 			metier.retirer(bf.getCode(), bf.getMontant(), 1L);
 		}

@@ -81,10 +81,12 @@
 			</table>
 		</div>
 		<div>
+		
 		<f:form modelAttribute="banqueForm" action="saveOperation">
 		<f:hidden path="code"/>
+		<table>
 		<tr>
-		<td>Versement :<f:radiobutton path="typeOperation" value="VE" onclick="this.form.submit()"/></td>
+		<td>Versement :<f:radiobutton path="typeOperation" value="VER" onclick="this.form.submit()"/></td>
 		<td>Retrait :<f:radiobutton path="typeOperation" value="RE"  onclick="this.form.submit()"/></td>
 		<td>Virement :<f:radiobutton path="typeOperation" value="VIR"  onclick="this.form.submit()"/></td>
 		</tr>
@@ -106,6 +108,7 @@
 		<td><input type="submit" name="action" value="save"></td>
 		</tr>
 		</c:if>
+		</table>
 		</f:form>
 		</div>
 		<div>
