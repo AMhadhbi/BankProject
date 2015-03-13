@@ -2,5 +2,21 @@
 div{
 	border:  1px dotted gray;
 	padding: 10px;
-	margin: 10px;
+	margind 10px;
+}
+
+.table1 th {
+	border: 1px dotted gray;
+	padding: 10 px;
+	margin: 10 px;
+	background: pink;
+	
+}
+
+.table1 td {
+	border: 1px dotted gray;
+	padding: 10 px;
+	margin: 10 px;
+	background: white;
+	
 }

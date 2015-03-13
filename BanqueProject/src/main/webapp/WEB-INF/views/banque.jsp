@@ -78,7 +78,7 @@
 		</div>
 		
 		<div>
-		<table>
+		<table class="table1">
 		<tr>
 		<th>Num</th>
 		<th>Type</th>
