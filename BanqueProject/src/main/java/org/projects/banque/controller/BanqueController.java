@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -27,65 +26,62 @@ public class BanqueController {
 		return "banque";
 
 	}
-	
 
 	@RequestMapping(value = "/chargerCompte")
-	public String charger(@Valid BanqueForm bf,BindingResult bindingResult ,Model model) {
-		if(bindingResult.hasErrors()){
+	public String charger(@Valid BanqueForm bf, BindingResult bindingResult,
+			Model model) {
+		if (bindingResult.hasErrors()) {
 			return "banque";
 		}
-		try{
-			Compte cp=metier.consulterCompte(bf.getCode());
+		try {
+			Compte cp = metier.consulterCompte(bf.getCode());
 			bf.setTypeCompte(cp.getClass().getSimpleName());
 			bf.setCompte(cp);
-			List<Operation> ops=metier.consulterOperations(bf.getCode());
+			List<Operation> ops = metier.consulterOperations(bf.getCode());
 			bf.setOperations(ops);
 		}
-		
-		catch (Exception e){
+
+		catch (Exception e) {
 			bf.setException(e.getMessage());
 		}
-		
-		
+
 		model.addAttribute("banqueForm", bf);
 		return "banque";
 
 	}
-	
 
 	@RequestMapping(value = "/saveOperation")
-	public String Save (@Valid BanqueForm bf,BindingResult bindingResult) {
-		try{
-			Compte cp=metier.consulterCompte(bf.getCode());
+	public String Save(@Valid BanqueForm bf, BindingResult bindingResult) {
+		try {
+			Compte cp = metier.consulterCompte(bf.getCode());
 			bf.setTypeCompte(cp.getClass().getSimpleName());
 			bf.setCompte(cp);
-			
-		}
-		
-		catch (Exception e){
+
+			if (bindingResult.hasErrors()) {
+				return "banque";
+			}
+			if (bf.getAction() != null) {
+				if (bf.getTypeOperation().equals("VER")) {
+					metier.verser(bf.getCode(), bf.getMontant(), 1L);
+				}
+
+				else if (bf.getTypeOperation().equals("RE")) {
+
+					metier.retirer(bf.getCode(), bf.getMontant(), 1L);
+				} else if (bf.getTypeOperation().equals("VIR")) {
+
+					metier.virement(bf.getCode(), bf.getCode2(),
+							bf.getMontant(), 1L);
+				}
+			}
+
+		} catch (Exception e) {
 			bf.setException(e.getMessage());
 		}
-		if(bindingResult.hasErrors()){
-			return "banque";
-		}
-		if(bf.getAction()!=null) {
-		if(bf.getTypeOperation().equals("VER")){
-			metier.verser(bf.getCode(), bf.getMontant(), 1L);
-		}
-		
-		else if(bf.getTypeOperation().equals("RE")){
-			
-			metier.retirer(bf.getCode(), bf.getMontant(), 1L);
-		}
-		else 
-			if(bf.getTypeOperation().equals("VIR")){
-				
-				metier.virement(bf.getCode(), bf.getCode2(), bf.getMontant(), 1L);
-			}
-		}
-		
-		List<Operation> ops=metier.consulterOperations(bf.getCode());
+
+		List<Operation> ops = metier.consulterOperations(bf.getCode());
 		bf.setOperations(ops);
+
 		return "banque";
 
 	}

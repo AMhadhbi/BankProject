@@ -2,11 +2,8 @@ package org.projects.banque.model;
 
 
 import java.util.List;
-
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotEmpty;
 import org.projects.banque.entities.Compte;
 import org.projects.banque.entities.Operation;
