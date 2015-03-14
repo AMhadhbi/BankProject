@@ -26,7 +26,7 @@ public interface IbanqueDao {
 
 	public Compte consulterCompte(String codeCpte);
 
-	public List<Operation> consulterOperations(String codeCpte);
+	public List<Operation> consulterOperations(String codeCpte, int position,int nboperation );
 
 	public Client consulterClient(Long codeCli);
 
@@ -42,4 +42,5 @@ public interface IbanqueDao {
 
 	public List<Employe> getEmployesByGroupe(Long codeGr);
 
+    public long getNombreOperation(String numCpte);
 }

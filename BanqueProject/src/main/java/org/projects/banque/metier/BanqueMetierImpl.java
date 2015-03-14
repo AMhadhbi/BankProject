@@ -82,9 +82,9 @@ public class BanqueMetierImpl implements IBanqueMetier {
 	}
 
 	@Override
-	public List<Operation> consulterOperations(String codeCpte) {
+	public List<Operation> consulterOperations(String codeCpte, int position,int nboperation) {
 		// TODO Auto-generated method stub
-		return dao.consulterOperations(codeCpte);
+		return dao.consulterOperations(codeCpte,  position,  nboperation);
 	}
 
 	@Override
@@ -127,6 +127,15 @@ public class BanqueMetierImpl implements IBanqueMetier {
 	public List<Employe> getEmployesByGroupe(Long codeGr) {
 		// TODO Auto-generated method stub
 		return dao.getEmployesByGroupe(codeGr);
+	}
+
+
+	
+
+	@Override
+	public long getNombreOperation(String numCpte) {
+		// TODO Auto-generated method stub
+		return dao.getNombreOperation(numCpte);
 	}
 
 }

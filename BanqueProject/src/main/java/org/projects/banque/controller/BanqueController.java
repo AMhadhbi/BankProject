@@ -33,18 +33,7 @@ public class BanqueController {
 		if (bindingResult.hasErrors()) {
 			return "banque";
 		}
-		try {
-			Compte cp = metier.consulterCompte(bf.getCode());
-			bf.setTypeCompte(cp.getClass().getSimpleName());
-			bf.setCompte(cp);
-			List<Operation> ops = metier.consulterOperations(bf.getCode());
-			bf.setOperations(ops);
-		}
-
-		catch (Exception e) {
-			bf.setException(e.getMessage());
-		}
-
+		chargerCompte(bf);
 		model.addAttribute("banqueForm", bf);
 		return "banque";
 
@@ -52,11 +41,8 @@ public class BanqueController {
 
 	@RequestMapping(value = "/saveOperation")
 	public String Save(@Valid BanqueForm bf, BindingResult bindingResult) {
-		try {
-			Compte cp = metier.consulterCompte(bf.getCode());
-			bf.setTypeCompte(cp.getClass().getSimpleName());
-			bf.setCompte(cp);
 
+		try {
 			if (bindingResult.hasErrors()) {
 				return "banque";
 			}
@@ -78,12 +64,22 @@ public class BanqueController {
 		} catch (Exception e) {
 			bf.setException(e.getMessage());
 		}
-
-		List<Operation> ops = metier.consulterOperations(bf.getCode());
-		bf.setOperations(ops);
-
+		chargerCompte(bf);
 		return "banque";
 
 	}
 
+	public void chargerCompte(BanqueForm bf) {
+		try {
+			Compte cp = metier.consulterCompte(bf.getCode());
+			bf.setTypeCompte(cp.getClass().getSimpleName());
+			bf.setCompte(cp);
+
+			List<Operation> ops = metier
+					.consulterOperations(bf.getCode(), 0, 5);
+			bf.setOperations(ops);
+		} catch (Exception e) {
+			bf.setException(e.getMessage());
+		}
+	}
 }

@@ -29,8 +29,8 @@ public interface IBanqueMetier {
 
 	public Compte consulterCompte(String codeCpte);
 
-	public List<Operation> consulterOperations(String codeCpte);
-
+	public List<Operation> consulterOperations(String codeCpte, int position,int nboperation );
+	
 	public Client consulterClient(Long codeCli);
 
 	public List<Client> consulterClients(String mc);
@@ -45,4 +45,5 @@ public interface IBanqueMetier {
 
 	public List<Employe> getEmployesByGroupe(Long codeGr);
 
+	public long getNombreOperation(String numCpte);
 }

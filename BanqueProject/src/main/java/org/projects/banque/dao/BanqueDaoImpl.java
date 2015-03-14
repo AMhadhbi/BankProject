@@ -75,15 +75,17 @@ public class BanqueDaoImpl implements IbanqueDao {
 	public Compte consulterCompte(String codeCpte) {
 		Compte cp = em.find(Compte.class, codeCpte);
 		if (cp == null)
-			throw new RuntimeException("Compte introuvable !");
+			throw new RuntimeException("Compte  "+codeCpte+ " introuvable !");
 		return cp;
 	}
 
 	@Override
-	public List<Operation> consulterOperations(String codeCpte) {
+	public List<Operation> consulterOperations(String codeCpte , int position,int nboperation) {
 		Query req = em
-				.createQuery("select o from Operation o where o.compte.codeCompte=:x");
+				.createQuery("select o from Operation o where o.compte.codeCompte=:x order by o.dateOperation desc");
 		req.setParameter("x", codeCpte);
+		req.setFirstResult(position);
+		req.setMaxResults(nboperation);
 		return req.getResultList();
 
 	}
@@ -141,6 +143,13 @@ public class BanqueDaoImpl implements IbanqueDao {
 				.createQuery("select e from Employe e where e.groupe.codeGroupe=:x");
 		req.setParameter("x", codeGr);
 		return req.getResultList();
+	}
+
+	@Override
+	public long getNombreOperation(String numCpte) {
+		Query req=em.createQuery("select count(o) from Operation o where o.codeCompte=:x");
+		req.setParameter("x", numCpte);
+		return req.getFirstResult();
 	}
 
 }
