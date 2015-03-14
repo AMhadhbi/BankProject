@@ -147,9 +147,9 @@ public class BanqueDaoImpl implements IbanqueDao {
 
 	@Override
 	public long getNombreOperation(String numCpte) {
-		Query req=em.createQuery("select count(o) from Operation o where o.codeCompte=:x");
+		Query req=em.createQuery("select count(o) from Operation o where o.compte.codeCompte=:x");
 		req.setParameter("x", numCpte);
-		return req.getFirstResult();
+		return (Long) req.getResultList().get(0);
 	}
 
 }

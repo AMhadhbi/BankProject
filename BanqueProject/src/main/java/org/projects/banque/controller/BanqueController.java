@@ -42,10 +42,11 @@ public class BanqueController {
 	@RequestMapping(value = "/saveOperation")
 	public String Save(@Valid BanqueForm bf, BindingResult bindingResult) {
 
-		try {
+		
 			if (bindingResult.hasErrors()) {
 				return "banque";
 			}
+			try {
 			if (bf.getAction() != null) {
 				if (bf.getTypeOperation().equals("VER")) {
 					metier.verser(bf.getCode(), bf.getMontant(), 1L);
@@ -74,10 +75,12 @@ public class BanqueController {
 			Compte cp = metier.consulterCompte(bf.getCode());
 			bf.setTypeCompte(cp.getClass().getSimpleName());
 			bf.setCompte(cp);
-
+          int pos=bf.getNbLignes()*bf.getNbPages();
 			List<Operation> ops = metier
-					.consulterOperations(bf.getCode(), 0, 5);
+					.consulterOperations(bf.getCode(), pos,bf.getNbLignes());
 			bf.setOperations(ops);
+			long nbOp=metier.getNombreOperation(bf.getCode());
+			bf.setNbPages((int)(nbOp/bf.getNbLignes())+1);
 		} catch (Exception e) {
 			bf.setException(e.getMessage());
 		}

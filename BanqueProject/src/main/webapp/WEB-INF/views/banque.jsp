@@ -16,7 +16,7 @@
 				<tr>
 					<td>Code:</td>
 					<td><f:input path="code" /></td>
-					<td><f:errors path="code" /></td>
+					<td><f:errors path="code" cssClass="error" /></td>
 				</tr>
 
 				<tr>
@@ -65,69 +65,90 @@
 		</div>
 		<div>
 			<table>
-			<tr>
-				<td>Nom Client :</td>
-				<td>${banqueForm.compte.client.nomClient}</td>
-			</tr>
-			</table>	
+				<tr>
+					<td>Nom Client :</td>
+					<td>${banqueForm.compte.client.nomClient}</td>
+				</tr>
+			</table>
 		</div>
 
 		<div>
 			<table>
-			<tr>
-				<td>Nom Eploye :</td>
-				<td>${banqueForm.compte.employe.nomEmploye}</td>
-			<tr>
+				<tr>
+					<td>Nom Eploye :</td>
+					<td>${banqueForm.compte.employe.nomEmploye}</td>
+				<tr>
 			</table>
 		</div>
 		<div>
-		
-		<f:form modelAttribute="banqueForm" action="saveOperation">
-		<f:hidden path="code"/>
-		<table>
-		<tr>
-		<td>Versement :<f:radiobutton path="typeOperation" value="VER" onclick="this.form.submit()"/></td>
-		<td>Retrait :<f:radiobutton path="typeOperation" value="RE"  onclick="this.form.submit()"/></td>
-		<td>Virement :<f:radiobutton path="typeOperation" value="VIR"  onclick="this.form.submit()"/></td>
-		</tr>
-		<c:if test="${not empty banqueForm.typeOperation}">
-		<tr>
-		<td>Montant:</td>
-		<td><f:input path="montant"/></td>
-		<td><f:errors path="montant"></f:errors></td>
-		</tr>
-		
-		<c:if test="${banqueForm.typeOperation=='VIR'}">
-		<tr>
-		<td>Vers le compte :</td>
-		<td><f:input path="code2"/></td>
-		<td><f:errors path="code2"></f:errors></td>
-		</tr>
-		</c:if>
-		<tr>
-		<td><input type="submit" name="action" value="save"></td>
-		</tr>
-		</c:if>
-		</table>
-		</f:form>
+
+			<f:form modelAttribute="banqueForm" action="saveOperation">
+				<f:hidden path="code" />
+				<table>
+					<tr>
+						<td>Versement :<f:radiobutton path="typeOperation"
+								value="VER" onclick="this.form.submit()" /></td>
+						<td>Retrait :<f:radiobutton path="typeOperation" value="RE"
+								onclick="this.form.submit()" /></td>
+						<td>Virement :<f:radiobutton path="typeOperation" value="VIR"
+								onclick="this.form.submit()" /></td>
+					</tr>
+					<c:if test="${not empty banqueForm.typeOperation}">
+						<tr>
+							<td>Montant:</td>
+							<td><f:input path="montant" /></td>
+							<td><f:errors path="montant" cssClass="error"></f:errors></td>
+						</tr>
+
+						<c:if test="${banqueForm.typeOperation=='VIR'}">
+							<tr>
+								<td>Vers le compte :</td>
+								<td><f:input path="code2" /></td>
+								<td><f:errors path="code2" cssClass="error"></f:errors></td>
+							</tr>
+						</c:if>
+						<tr>
+							<td><input type="submit" name="action" value="save"></td>
+						</tr>
+					</c:if>
+				</table>
+			</f:form>
 		</div>
 		<div>
-		<table class="table1">
-		<tr>
-		<th>Num</th>
-		<th>Type</th>
-		<th>Date d'Operation</th>
-		<th>Montant</th>
-		</tr>
-		<c:forEach items="${banqueForm.operations }" var="op">
-		 <tr>
-		<td>${op.numOperation}</td>
-		<td>${op}</td>
-		<td>${op.dateOperation}</td>
-		<td>${op.montant}</td>
-		</tr>
-		</c:forEach>
-		</table>
+			<table class="table1">
+				<tr>
+					<th>Num</th>
+					<th>Type</th>
+					<th>Date d'Operation</th>
+					<th>Montant</th>
+				</tr>
+				<c:forEach items="${banqueForm.operations }" var="op">
+					<tr>
+						<td>${op.numOperation}</td>
+						<td>${op}</td>
+						<td>${op.dateOperation}</td>
+						<td>${op.montant}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<div>
+
+				<c:forEach begin="0" end="${banqueForm.nbPages-1}" var="p">
+					<c:choose>
+						<c:when test="${p==banqueForm.page}">
+						<span class="current">
+						Page ${p}</span>
+						</c:when>
+            
+						<c:otherwise>
+                        <span class="autrePage">
+						<a href="chargerCompte?page=${p}&code=${banqueForm.code}">Page ${p}</a>
+						</span>
+						</c:otherwise>
+					</c:choose>
+		
+				</c:forEach>
+			</div>
 		</div>
 	</c:if>
 
